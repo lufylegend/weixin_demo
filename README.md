@@ -3,7 +3,8 @@
 
 ## npm初始化
 
-    `npm init`(WINDOWS环境下为`npm init -y`)
+    npm init
+    (WINDOWS环境下为npm init -y)
 
 ## 安装webpack和babel
 
