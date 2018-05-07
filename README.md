@@ -6,7 +6,7 @@
     npm init
     (WINDOWS环境下为npm init -y)
 
-## 安装webpack和babel
+## 一些安装
 
     npm install --save-dev fs-extra
 
