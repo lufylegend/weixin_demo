@@ -1,0 +1,16 @@
+{
+  "name": "weixin_demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node tools/build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fs-extra": "^6.0.0",
+    "minimist": "^1.2.0",
+    "uglify-es": "^3.3.9"
+  },
+  "description": ""
+}
