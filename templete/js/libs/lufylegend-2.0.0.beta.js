@@ -623,8 +623,8 @@ var LGlobal = ( function () {
         }
         LGlobal.canvasObj.width = w;
         LGlobal.canvasObj.height = h;
-		LGlobal.width = LGlobal._content_width;
-		LGlobal.height = LGlobal._content_height;
+		LGlobal.width = LGlobal._content_width || w;
+		LGlobal.height = LGlobal._content_height || h;
 		LGlobal.canvasStyleWidth = LGlobal.canvasObj.width;
 		LGlobal.canvasStyleHeight = LGlobal.canvasObj.height;
         LGlobal.canvas = (function() {
@@ -3246,7 +3246,7 @@ var LMedia = (function () {
 				return;
 			}
 		},
-		_onended : function () {
+		_onended : function (needClose) {
 			var s = this, i, l;
 			s.dispatchEvent(LEvent.SOUND_COMPLETE);
 			if (++s.loopIndex < s.loopLength) {
@@ -3255,7 +3255,7 @@ var LMedia = (function () {
 				s.close();
 				s.play(s.currentStart, s.loopLength, s.currentTimeTo);
 				s.loopIndex = i;
-			} else {
+			} else if(needClose){
 				s.close();
 			}
 		},
@@ -3334,7 +3334,7 @@ var LMedia = (function () {
 				delete s.timeout;
 			}
 			s.timeout = setTimeout(function(){
-				s._onended();
+				s._onended(s.currentTimeTo != s.length);
 			}, (s.currentTimeTo - s.data.currentTime) * 1000);
 			s.data.loop = false;
 			s.loopIndex = 0;
