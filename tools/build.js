@@ -20,11 +20,9 @@ getPath()
     if(!isDir(savePath)){
         fs.copySync(path.resolve(__dirname + '/../', 'templete'), savePath);
         //fs.mkdirsSync(savePath);
-    }else{
-        fs.copySync(path.resolve(__dirname + '/../', 'templete/js/libs/lufylegend-2.0.0.beta.js'), savePath + '/js/libs/lufylegend-2.0.0.beta.js');
-        fs.copySync(path.resolve(__dirname + '/../', 'templete/js/libs/lufylegend.ui-0.15.0.min.js'), savePath + '/js/libs/lufylegend.ui-0.15.0.min.js');
-
     }
+    fs.copySync(path.resolve(__dirname + '/../', 'engine/lufylegend-2.0.0.beta.js'), savePath + '/js/libs/lufylegend-2.0.0.beta.js');
+    fs.copySync(path.resolve(__dirname + '/../', 'engine/lufylegend.ui-0.15.0.min.js'), savePath + '/js/libs/lufylegend.ui-0.15.0.min.js');
     return writeFile(`${savePath}/js/Main.js`, UglifyJS.minify(combinedContent, {}).code);
 })
 .catch((e)=>{

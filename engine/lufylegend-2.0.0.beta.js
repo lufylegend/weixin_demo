@@ -3231,6 +3231,11 @@ var LMedia = (function () {
 				s.dispatchEvent(event);
 			};
 			if (!s._addEvent) {
+				if(LGlobal.wx){
+					s.data.addEventListener('ended', function(){
+						s._onended(false);
+					}, false);
+				}
 				s.data.addEventListener('error', s.error, false);
 				s.data.addEventListener('canplaythrough', s.canplaythrough, false);
 			}
@@ -3238,7 +3243,7 @@ var LMedia = (function () {
 			if (s.data.readyState) {
 				s.data.removeEventListener('error', s.error);
 				s.data.removeEventListener('canplaythrough', s.canplaythrough);
-				s.length = s.data.duration - (LGlobal.android ? 0.1 : 0);
+				s.length = s.data.duration - (LGlobal.android && !LGlobal.wx ? 0.1 : 0);
 				let e = new LEvent(LEvent.COMPLETE);
 				e.currentTarget = s;
 				e.target = s.data;
@@ -3246,7 +3251,7 @@ var LMedia = (function () {
 				return;
 			}
 		},
-		_onended : function (needClose) {
+		_onended : function () {
 			var s = this, i, l;
 			s.dispatchEvent(LEvent.SOUND_COMPLETE);
 			if (++s.loopIndex < s.loopLength) {
@@ -3255,7 +3260,7 @@ var LMedia = (function () {
 				s.close();
 				s.play(s.currentStart, s.loopLength, s.currentTimeTo);
 				s.loopIndex = i;
-			} else if(needClose){
+			} else if(!LGlobal.wx) {
 				s.close();
 			}
 		},
@@ -3311,15 +3316,14 @@ var LMedia = (function () {
 		},
 		play : function (c, l, to) {
 			var s = this;
-			if (s.length == 0) {
+			if (s.length == 0 && !LGlobal.wx) {
 				return;
 			}
 			if (LGlobal.android && !LGlobal.wx) {
 				LSound.Container.stopOther(this);
 			}
-			if (typeof c != UNDEFINED) {
-				s.data.currentTime = c;
-				s.currentStart = c;
+			if (typeof c == UNDEFINED) {
+				c = 0;
 			}
 			if (typeof l != UNDEFINED) {
 				s.loopLength = l;
@@ -3333,12 +3337,16 @@ var LMedia = (function () {
 				clearTimeout(s.timeout);
 				delete s.timeout;
 			}
-			s.timeout = setTimeout(function(){
-				s._onended(s.currentTimeTo != s.length);
-			}, (s.currentTimeTo - s.data.currentTime) * 1000);
+			if(!LGlobal.wx){
+				s.timeout = setTimeout(function(){
+					s._onended();
+				}, (s.currentTimeTo - s.data.currentTime) * 1000);
+			}
 			s.data.loop = false;
 			s.loopIndex = 0;
 			s.playing = true;
+			s.data.currentTime = c;
+			s.currentStart = c;
 			s.data.play();
 		},
 		playSegment : function (c, seg, l) {
