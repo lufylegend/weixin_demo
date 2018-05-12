@@ -715,9 +715,9 @@ if (!isLoadSound) {
     isLoadSound = true;
     sound_bg.load(imglist["sound_bg"]);
     sound_get.load(imglist["sound_get"]);
-    sound_jumps.forEach(element => {
-        element.load(imglist["sound_jump"]);
-    });
+    for(var i = 0;i<sound_jumps.length;i++){
+        sound_jumps[i].load(imglist["sound_jump"]);
+    }
     sound_start.load(imglist["sound_start"]);
     sound_lose.load(imglist["sound_lose"]);
 }
