@@ -3342,6 +3342,21 @@ var LMedia = (function () {
 					s._onended();
 				}, (s.currentTimeTo - s.data.currentTime) * 1000);
 			}
+			if(LGlobal.wx){
+				s._wxDataList = s._wxDataList || [];
+				if(s._wxDataList.length > 0){
+					s.data = s._wxDataList.shift();
+				}
+				if(s._wxDataList.length == 0){
+					let audio = new Audio();
+					audio.addEventListener('ended', function(){
+						s._onended(false);
+					}, false);
+					audio.src = s.data.src;
+					s._wxDataList.push(audio);
+				}
+				s._wxDataList.push(s.data);
+			}
 			s.data.loop = false;
 			s.loopIndex = 0;
 			s.playing = true;
