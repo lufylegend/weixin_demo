@@ -28,4 +28,6 @@
 
 ## 游戏测试
 直接用微信开发工具打开`build/RunningGirl`即可进行测试
-    
+
+# 注意事项
+所有javascript代码必须写在.js文件中，html中的javascript代码会被无视掉
