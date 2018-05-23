@@ -24,7 +24,7 @@
 打开`build/RunningGirl/game.json`设置游戏横竖屏等
 
 ## 游戏素材
-微信工程发布完成后，需要将游戏素材，如图片，音效等文件手动拷贝到`build/RunningGirl`文件夹下，以后会改成自动化处理
+微信工程发布完成后，需要将游戏素材，如图片，音效等文件手动拷贝到`build/RunningGirl`文件夹下，以后可能会改成自动化处理
 
 ## 游戏测试
 直接用微信开发工具打开`build/RunningGirl`即可进行测试
