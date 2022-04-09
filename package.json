@@ -9,7 +9,7 @@
   "license": "ISC",
   "devDependencies": {
     "fs-extra": "^6.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.6",
     "uglify-es": "^3.3.9"
   },
   "description": ""
